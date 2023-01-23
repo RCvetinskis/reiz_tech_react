@@ -1,38 +1,69 @@
+import { reverse } from "lodash";
 import React, { useContext } from "react";
 import mainContext from "../context/mainContext";
-import {
-  fetchOceaniaRegion,
-  fetchSmallerThanLt,
-} from "../utilities/fetchCountries";
+import { fetchFilterRegion } from "../utilities/fetchCountries";
 const Filters: React.FC = () => {
-  const { countries, setCountries, setCountriesLength } =
+  const { countries, setFilteredCountries, setIsFiltered, setCountries } =
     useContext(mainContext);
 
-  // function filterOceania() {
-  //   const filteredOceania = countries.filter((x) => x.region === "Oceania");
-  //   console.log(filteredOceania.length);
+  const regions = [
+    { name: "Africa" },
+    { name: "Asia" },
+    { name: "Oceania" },
+    { name: "Americas" },
+    { name: "Europe" },
+  ];
 
-  //   setCountries(filteredOceania);
-  //   setCountriesLength(filterOceania.length);
-  // }
+  function filterSmallest(country: string) {
+    const selecetedCountry = countries.filter((x) => x.name === country);
+    const filteredCountires = countries.filter(
+      (x) => x.area < selecetedCountry[0].area
+    );
+    setFilteredCountries(filteredCountires);
+    setIsFiltered(true);
+  }
+
   return (
     <div>
-      <button
-        className="custom-btn"
-        onClick={() => fetchSmallerThanLt("Lithuania", setCountries)}
+      <label htmlFor="Smaller Countires than">Smaller than:</label>
+
+      <select
+        onChange={(e: any) => filterSmallest(e.target.value)}
+        name="smallerCountries"
+        id="smallerCountries"
       >
-        Smaller Lithuania
-      </button>
-      <button
-        className="custom-btn"
-        onClick={() =>
-          fetchOceaniaRegion("oceania", setCountries, setCountriesLength)
+        {countries.map((country, i) => (
+          <option key={i}>{country.name}</option>
+        ))}
+      </select>
+
+      <label htmlFor="region">Choose a Region:</label>
+      <select
+        id="region"
+        onChange={(e: any) =>
+          fetchFilterRegion(e.target.value, setFilteredCountries, setIsFiltered)
         }
-        // onClick={filterOceania}
       >
-        {" "}
-        Oceania region
+        {regions.map((region, i) => (
+          <option key={i} value={region.name}>
+            {region.name}
+          </option>
+        ))}
+      </select>
+
+      <button className="btn btn-dark" onClick={() => setIsFiltered(false)}>
+        Reset
       </button>
+
+      <div>
+        <button
+          className="btn btn-dark"
+          onClick={() => setCountries(countries.sort())}
+        >
+          Ascending
+        </button>
+        <button className="btn btn-dark">Descending</button>
+      </div>
     </div>
   );
 };

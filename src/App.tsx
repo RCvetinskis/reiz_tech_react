@@ -5,17 +5,26 @@ import { fetchAllCountries } from "./utilities/fetchCountries";
 import mainContext from "./context/mainContext";
 const App: React.FC = () => {
   const [countries, setCountries] = useState([]);
-  const [countriesLength, setCountriesLength] = useState(250);
+  const [isFiltered, setIsFiltered] = useState(false);
+  const [filteredCountries, setFilteredCountries] = useState([]);
 
-  // finish filter and sort, either set initial state to get all countries, or fetch filtered and sorted countries from api
   useEffect(() => {
-    fetchAllCountries(setCountries, setCountriesLength);
+    {
+      !isFiltered && fetchAllCountries(setCountries);
+    }
   }, []);
 
   return (
     <div className="App">
       <mainContext.Provider
-        value={{ countries, setCountries, countriesLength, setCountriesLength }}
+        value={{
+          countries,
+          setCountries,
+          isFiltered,
+          setIsFiltered,
+          filteredCountries,
+          setFilteredCountries,
+        }}
       >
         <Container>
           <IndexPage />

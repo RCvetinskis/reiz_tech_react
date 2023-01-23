@@ -4,15 +4,19 @@ import { ICountry } from "../types/types";
 type mainContextType = {
   countries: ICountry[] | [];
   setCountries: (country: any) => void;
-  countriesLength: number;
-  setCountriesLength: (countriesLength: number) => void;
+  isFiltered: boolean;
+  setIsFiltered: (filtered: boolean) => void;
+  filteredCountries: ICountry[] | [];
+  setFilteredCountries: (filtered: any) => void;
 };
 
 const iMainContextState = {
   countries: [],
   setCountries: () => {},
-  countriesLength: 250,
-  setCountriesLength: () => {},
+  isFiltered: false,
+  setIsFiltered: () => {},
+  filteredCountries: [],
+  setFilteredCountries: () => {},
 };
 const mainContext = createContext<mainContextType>(iMainContextState);
 export default mainContext;

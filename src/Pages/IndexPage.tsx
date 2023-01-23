@@ -1,17 +1,22 @@
-import React, { useContext } from "react";
-import Header from "../components/Header";
+import React, { useContext, useState } from "react";
+import Filters from "../components/Filters";
+
+import Countries from "../components/Countries";
 import Pagination from "../components/Pagination";
 import { isNil } from "lodash";
 import mainContext from "../context/mainContext";
 
 const IndexPage: React.FC = () => {
-  const { countries, setCountries, countriesLength } = useContext(mainContext);
+  const { countries, isFiltered, filteredCountries } = useContext(mainContext);
 
+  const [startingPage, setStartingPage] = useState(1);
   return (
     <div>
       {!isNil(countries) ? (
         <>
-          <Header />
+          <div className="mt-3 d-flex justify-content-between">
+            <Filters />
+          </div>
           <table className="table mt-3">
             <thead>
               <tr>
@@ -27,21 +32,15 @@ const IndexPage: React.FC = () => {
               </tr>
             </thead>
 
-            <tbody>
-              {countries.slice(0, 15).map((country, i) => (
-                <tr key={i}>
-                  <td className="td">{country.name}</td>
-                  <td>{country.region}</td>
-                  <td>{country.area}</td>
-                </tr>
-              ))}
-            </tbody>
+            <Countries
+              countries={isFiltered ? filteredCountries : countries}
+              startingPage={startingPage}
+            />
           </table>
           <Pagination
-            total={countriesLength}
+            total={isFiltered ? filteredCountries.length : countries.length}
             limit={15}
-            countries={countries}
-            setCountries={setCountries}
+            setStartingPage={setStartingPage}
           />
         </>
       ) : (

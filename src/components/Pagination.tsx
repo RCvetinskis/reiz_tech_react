@@ -1,28 +1,16 @@
 import React from "react";
 import ReactPaginate from "react-paginate";
-import { fetchPages } from "../utilities/fetchCountries";
-import { ICountry } from "../types/types";
 import { switchPage } from "../utilities/switchPage";
 type Props = {
   total: number;
   limit: number;
-  countries: ICountry[];
-  setCountries: (country: any) => void;
+  setStartingPage: (country: any) => void;
 };
-const Pagination: React.FC<Props> = ({
-  total,
-  limit,
-  countries,
-  setCountries,
-}) => {
+const Pagination: React.FC<Props> = ({ total, limit, setStartingPage }) => {
   const pagesCount = Math.ceil(total / limit);
-
   const handlePageClick = (data: any) => {
     let currentPage = data.selected + 1;
-
-    // fetchPages(currentPage, limit, setCountries);
-    //
-    switchPage(currentPage, limit, countries, setCountries);
+    switchPage(currentPage, limit, setStartingPage);
   };
 
   return (
