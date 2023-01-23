@@ -12,9 +12,9 @@ const IndexPage: React.FC = () => {
   const [areaFilter, setAreaFilter] = useState(null);
   const [regionFilter, setRegionFilter] = useState(null);
   const [sortByName, setSortByName] = useState(null);
+
   let filteredCountries = countries;
 
-  // filtering
   if (areaFilter) {
     const country = countries.find((c) => c.name === areaFilter);
     if (country) {
@@ -30,7 +30,6 @@ const IndexPage: React.FC = () => {
     );
   }
 
-  // sorting
   if (sortByName === "descending") {
     filteredCountries = filteredCountries.sort((a, b) => {
       return b.name.localeCompare(a.name);

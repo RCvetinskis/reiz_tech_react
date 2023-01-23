@@ -6,7 +6,6 @@ const Sort: React.FC<ISort> = ({ onSortChange }) => {
   return (
     <div>
       <label htmlFor="sortByName">Sort By Name:</label>
-
       <select
         className="form-select form-select-sm"
         onChange={(e: any) => onSortChange(e.target.value)}
