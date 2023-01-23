@@ -1,26 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import { Container } from "react-bootstrap";
+import IndexPage from "./Pages/IndexPage";
+import { fetchAllCountries } from "./utilities/fetchCountries";
+import mainContext from "./context/mainContext";
+const App: React.FC = () => {
+  const [countries, setCountries] = useState([]);
+  const [countriesLength, setCountriesLength] = useState(250);
 
-function App() {
+  // finish filter and sort, either set initial state to get all countries, or fetch filtered and sorted countries from api
+  useEffect(() => {
+    fetchAllCountries(setCountries, setCountriesLength);
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <mainContext.Provider
+        value={{ countries, setCountries, countriesLength, setCountriesLength }}
+      >
+        <Container>
+          <IndexPage />
+        </Container>
+      </mainContext.Provider>
     </div>
   );
-}
+};
 
 export default App;

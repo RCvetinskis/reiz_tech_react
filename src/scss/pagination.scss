@@ -1,0 +1,12 @@
+.page-link {
+  background: $yellow-green-color !important;
+  border-color: white !important;
+  color: black !important;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.active {
+  background: $light-green-color !important;
+}
