@@ -3,15 +3,13 @@ import { Container } from "react-bootstrap";
 import IndexPage from "./Pages/IndexPage";
 import { fetchAllCountries } from "./utilities/fetchCountries";
 import mainContext from "./context/mainContext";
+import Loading from "./components/Loading";
 const App: React.FC = () => {
   const [countries, setCountries] = useState([]);
-  const [isFiltered, setIsFiltered] = useState(false);
-  const [filteredCountries, setFilteredCountries] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    {
-      !isFiltered && fetchAllCountries(setCountries);
-    }
+    fetchAllCountries(setCountries, setIsLoading);
   }, []);
 
   return (
@@ -20,15 +18,9 @@ const App: React.FC = () => {
         value={{
           countries,
           setCountries,
-          isFiltered,
-          setIsFiltered,
-          filteredCountries,
-          setFilteredCountries,
         }}
       >
-        <Container>
-          <IndexPage />
-        </Container>
+        <Container>{isLoading ? <Loading /> : <IndexPage />}</Container>
       </mainContext.Provider>
     </div>
   );

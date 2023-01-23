@@ -1,16 +1,17 @@
 import React from "react";
 import ReactPaginate from "react-paginate";
-import { switchPage } from "../utilities/switchPage";
-type Props = {
-  total: number;
-  limit: number;
-  setStartingPage: (country: any) => void;
-};
-const Pagination: React.FC<Props> = ({ total, limit, setStartingPage }) => {
+import { IPagination } from "../types/types";
+
+const Pagination: React.FC<IPagination> = ({
+  total,
+  limit,
+  setStartingPage,
+}) => {
   const pagesCount = Math.ceil(total / limit);
+
   const handlePageClick = (data: any) => {
-    let currentPage = data.selected + 1;
-    switchPage(currentPage, limit, setStartingPage);
+    const startIndex = data.selected * limit;
+    setStartingPage(startIndex);
   };
 
   return (

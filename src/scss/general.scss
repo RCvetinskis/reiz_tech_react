@@ -2,21 +2,26 @@
 * {
   margin: 0;
   padding: 0;
+  &:focus {
+    border-color: $grey-color !important;
+    box-shadow: 0 0 8px $red-orange-color !important;
+  }
 }
 body {
-  background-color: $light-green-color !important;
+  background-color: $black-color !important;
   font-family: "Roboto", sans-serif;
 }
 
-.custom-btn {
-  border: none;
-  border-radius: 12px;
-  background-color: $yellow-green-color;
-  padding: 3px 10px;
-  transition: 0.3s ease-in-out;
-  min-width: 150px;
-  &:hover {
-    cursor: pointer;
-    transform: scale(0.9);
-  }
+// inputs colors
+.form-select {
+  background: $black-color !important;
+  color: $red-orange-color !important;
+  box-shadow: 0 0 1px 2px white !important;
+}
+label {
+  color: white !important;
+}
+
+table {
+  box-shadow: 0 0 5px 2px white !important;
 }
